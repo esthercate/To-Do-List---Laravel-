@@ -19,11 +19,10 @@
 	<!--Display Validation Errors-->
 	@include('common.errors')
 
-	<!--New task form-->
+	<!--Create new task form-->
 
-	<form method="post" action="{{url('task')}}">
+	<form method="post" action="{{route('tasks.store')}}">
 		@csrf
-
 		<div class="form-group">
 			<label for="task_name">Add New Task</label>
 			<input type="text" class="form-control" name="task_name">

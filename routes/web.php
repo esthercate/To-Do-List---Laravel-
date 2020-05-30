@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('tasks');
+    return view('mytasks');
 });
 
 Route::resource('tasks', 'TaskController');

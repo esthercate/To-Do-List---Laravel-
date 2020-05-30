@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\task;
 
 class TaskController extends Controller
 {
@@ -13,7 +14,8 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+      $tasklist = task::all();
+      return view('index', compact('tasklist'));
     }
 
     /**
@@ -23,7 +25,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-     return view('tasks');
+     return view('mytasks');
     }
 
     /**
@@ -34,7 +36,14 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData = $request->validate([
+            'task_name' => 'required|max:255',
+
+        ]);
+
+        $show = task::create($validateData);
+
+        return redirect('/tasks')->with('success','Your task is successfully saved');
     }
 
     /**
@@ -79,6 +88,9 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $tasklist = task::findOrFail($id);
+        $tasklist->delete();
+
+        return redirect('/tasks')->with('success', 'Task is successfully deleted');
     }
 }
